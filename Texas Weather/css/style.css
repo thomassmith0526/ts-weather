@@ -1,0 +1,34 @@
+#today {
+    margin-right: 20%;
+}
+#head {
+    background-color: rgba(10, 128, 128, 0.767);   
+}
+#search {
+    font-size: 24px;
+    font-weight: 600;
+    height: 50px;
+}
+#submit {
+    background-color: lightblue;
+    border-radius: 10px ;
+    color:black ;
+    margin-top: 10px;
+}
+#city {
+    background-color: lightgoldenrodyellow;
+    border-radius: 10px;
+}
+#border {
+    border-bottom: 3px solid black;
+    border-top: white;
+    border-left: white;
+    border-right: white;
+    margin-top: 6%;
+}
+#new-city {
+    margin-top: 4%;
+    border-radius: 10px ;
+    border: 3px solid grey;
+    background-color: lightgray;
+}
