@@ -8,8 +8,9 @@ const apiKey = "3d8d7e3772c59d486c6023acf03a4346";
  let cityStorage = [];
 // }
 
-submit.addEventListener("click", function (city) {
+submit.addEventListener("click", function () {
   console.log("submit");
+  const city = document.getElementById("city").value;
   fetch(
     ` https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`
   )
