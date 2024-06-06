@@ -43,12 +43,13 @@ submit.addEventListener("click", function () {
       .then(function (geodata) {
         console.log(geodata);
         todayweather(geodata);
-        // fivedayforcast(data);
+        fivedayforcast(geodata);
       });
   }
 
 
   function tdycity(data) {
+    
     const tdyMainDiv = document.createElement("div");
     tdyMainDiv.setAttribute("class", "col-12 pt-5 ps-4 bg-light");
     tdyWea.append(tdyMainDiv);
@@ -59,24 +60,54 @@ submit.addEventListener("click", function () {
     cityName.textContent = `City: ${data[0].name}`;
     tdyMainDiv.append(cityName);
   }
-  function todayweather(geodata){  
+  
+  function todayweather(geodata){ 
+     let realTemp = ((Number(geodata.list[0].main.temp)- 273.15)* 9/5 +32).toFixed(0)
     const mainDiv = document.createElement("div")
-    mainDiv.setAttribute("class", "col-12 pt-5 ps-4 bg-danger")
+    mainDiv.setAttribute("class", "col-12 pt-5 ps-4 bg-light")
+    tdyWea.append(mainDiv)
     const tdyTemp = document.createElement("h2");
     console.log(geodata);
-    tdyTemp.textContent = `Temp: ${geodata.list[0].main.temp} `;
+    tdyTemp.textContent = `Temp: ${realTemp}F `;
     mainDiv.append(tdyTemp);
 
     const tdyWind = document.createElement("h3");
-    tdyWind.textContent = `Wind: mph`;
+    tdyWind.textContent = `Wind: ${geodata.list[0].wind.speed}mph`;
     mainDiv.append(tdyWind);
 
     const tdyHum = document.createElement("h3");
-    tdyHum.textContent = `Humidity:`;
+    tdyHum.textContent = `Humidity: ${geodata.list[0].main.humidity}%`;
     mainDiv.append(tdyHum);
+
+    // const icon = document.createElement("h3");
+    // icon.textContent = `${geodata.list[0].weather[0].id}`;
+    // mainDiv.append(icon)
   }
 
-  
+  function fivedayforcast(geodata){
+    console.log(geodata)
+    for (let i=4; i<40; i+8){
+      let realTemp = ((Number(geodata.list[0].main.temp)- 273.15)* 9/5 +32).toFixed(0)
+      let wEmoji = '☀️'
+      switch(geodata.list[i].weather[0].main) {
+        case 'Rain':
+          wEmoji = '🌧️'
+          break;
+        case 'Clouds':
+          wEmoji = '☁️'
+          break;
+      default:
+          wEmoji = '☀️' 
+      }
+      const tdyCard = document.createElement("div")
+      tdyCard.setAttribute("class", "col-2 bg-info")
+      weekDiv.append(tdyCard)
+      console.log('hello', geodata)
+
+
+    }
+
+  }
   
 
   // function initial() {
