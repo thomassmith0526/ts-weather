@@ -43,7 +43,7 @@ submit.addEventListener("click", function () {
       .then(function (geodata) {
         console.log(geodata);
         todayweather(geodata);
-        fivedayforcast(geodata);
+        // fivedayforcast(geodata);
       });
   }
 
@@ -63,6 +63,9 @@ submit.addEventListener("click", function () {
   
   function todayweather(geodata){ 
      let realTemp = ((Number(geodata.list[0].main.temp)- 273.15)* 9/5 +32).toFixed(0)
+     const front = 'https://openweathermap.org/img/wn/'
+     const back = '@2x.png'
+     console.log(geodata)
     const mainDiv = document.createElement("div")
     mainDiv.setAttribute("class", "col-12 pt-5 ps-4 bg-light")
     tdyWea.append(mainDiv)
@@ -79,35 +82,39 @@ submit.addEventListener("click", function () {
     tdyHum.textContent = `Humidity: ${geodata.list[0].main.humidity}%`;
     mainDiv.append(tdyHum);
 
-    // const icon = document.createElement("h3");
-    // icon.textContent = `${geodata.list[0].weather[0].id}`;
-    // mainDiv.append(icon)
+    const icon = document.createElement("img");
+    icon.setAttribute("src ${geodata.list[0].weather[0].icon}")
+    icon.textContent = `${geodata.list[0].weather[0].icon}`;
+    mainDiv.append(icon)
   }
 
-  function fivedayforcast(geodata){
-    console.log(geodata)
-    for (let i=4; i<40; i+8){
-      let realTemp = ((Number(geodata.list[0].main.temp)- 273.15)* 9/5 +32).toFixed(0)
-      let wEmoji = '☀️'
-      switch(geodata.list[i].weather[0].main) {
-        case 'Rain':
-          wEmoji = '🌧️'
-          break;
-        case 'Clouds':
-          wEmoji = '☁️'
-          break;
-      default:
-          wEmoji = '☀️' 
-      }
-      const tdyCard = document.createElement("div")
-      tdyCard.setAttribute("class", "col-2 bg-info")
-      weekDiv.append(tdyCard)
-      console.log('hello', geodata)
+  // function fivedayforcast(geodata){
+  //   console.log(geodata)
+  //   for (let i=4; i<40; i+8){
+  //     let realTemp = ((Number(geodata.list[0].main.temp)- 273.15)* 9/5 +32).toFixed(0)
+  //     let wEmoji = '☀️'
+  //     switch(geodata.list[i].weather[0].main) {
+  //       case 'Rain':
+  //         wEmoji = '🌧️'
+  //         break;
+  //       case 'Clouds':
+  //         wEmoji = '☁️'
+  //         break;
+  //     default:
+  //         wEmoji = '☀️' 
+  //     }
+  //     const tdyCard = document.createElement("div")
+  //     tdyCard.setAttribute("class", "col-2 bg-info")
+  //     weekDiv.append(tdyCard)
+     
+
+  //     const dayDate = document.createElement('h3')
+  //     dayDate.textContent =` ${geodata.list[i].main.dx_txt}`
 
 
-    }
+  //   }
 
-  }
+  // }
   
 
   // function initial() {
