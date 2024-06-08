@@ -3,6 +3,7 @@
 }
 #head {
   background-color: rgba(10, 128, 128, 0.767);
+  color: black;
 }
 #search {
   font-size: 24px;
@@ -44,4 +45,13 @@
 
   border-radius: 50px;
   text-align: center;
+}
+.col-2 {
+  background-color: chocolate;
+  border-radius: 20%;
+  color: white;
+}
+.col-12 {
+  background-color: rgb(65, 111, 150);
+  color: coral;
 }
