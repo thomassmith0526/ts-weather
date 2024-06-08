@@ -8,8 +8,8 @@ console.log(tdyDate);
 
 submit.addEventListener("click", function () {
   console.log("submit");
-  // const city = userCity.value;
-  // let cityStorage = [];
+  const city = userCity.value;
+  let cityStorage = [];
   //   let lat = 29.4252
   // let lon = -98.4946
   // let city = 'San Antonio'
@@ -24,10 +24,10 @@ submit.addEventListener("click", function () {
       getWeather(data);
       tdycity(data);
     });
-  function getWeather(geodata) {
+  function getWeather(data) {
     console.log("geodata");
-    let lat = geodata[0].lat;
-    let lon = geodata[0].lon;
+    let lat = data[0].lat;
+    let lon = data[0].lon;
     // const sampleGeodata = [{lat: 40.7128, lon: -74.0060}]
     // console.log(sampleGeodata)
 
@@ -58,8 +58,8 @@ submit.addEventListener("click", function () {
 
   function todayweather(geodata) {
     let realTemp = (
-      ((Number(geodata.list[0].main.temp) - 273.15) * 9) / 5 +
-      32
+      ((Number(geodata.list[0].main.temp) - 273.15) * 9/5 +
+      32)
     ).toFixed(0);
     let wEmoji = "☀️";
     switch (geodata.list[0].weather[0].main) {
@@ -101,8 +101,8 @@ submit.addEventListener("click", function () {
     for (let i = 4; i < 40; i = i + 8) {
       // console.log(i);
       let realTemp = (
-        ((Number(geodata.list[i].main.temp_max) - 273.15) * 9) / 5 +
-        32
+        ((Number(geodata.list[i].main.temp_max) - 273.15) * 9/5 +
+        32)
       ).toFixed(0);
       let wEmoji = "☀️";
       switch (geodata.list[i].weather[0].main) {
@@ -144,18 +144,21 @@ submit.addEventListener("click", function () {
       tdyCard.append(dayHum);
     }
   }
+  const mainDiv = document.createElement("div");
+  mainDiv.setAttribute("class", "col-12 pt-5 ps-4 ");
+  const tdyCard = document.createElement("div");
+      tdyCard.setAttribute("class", "col-2 p-3 m-2 ")
+  function initial() {
+    tdyCard.textContent = "";
+    mainDiv.textContent = "";
+  }
 
-  // function initial() {
-  //   tdyCard.textContent = "";
-  //   mainDiv.textContent = "";
-  // }
-
-  // function weather(geodata) {
-  //   initial();
-  //   fivedayforcast(geodata);
-  //   todayweather(geodata);
-  // }
-  // weather();
+  function weather(geodata) {
+    initial();
+    fivedayforcast(geodata);
+    todayweather(geodata);
+  }
+  weather();
   
   
   
@@ -164,17 +167,23 @@ submit.addEventListener("click", function () {
 });
 
 // const city = document.getElementById(submit)
-function cityhistory() {
-  // console.log(submit.value)
-  // if (submit.value == null){
-  //   console.log(true)
-  //   return
-  // } else {
-  //   console.log(false)
-  // }
+function handleFromSubmit(event) {
+    event.preventDefault();
+
+    const cities = document.getElementById('submit')
+    const citiesData = JSON.stringify(cities)
+    localStorage.setItem('userCities',citiesData)
+    updatedLastRegisterdUser(citiesData)
 
 }
-cityhistory();
+
+function updatedLastRegisterdUser(citiesData) {
+  const lastCity = document.createElement('lastUsedCity')
+  lastCity.textContent = `${citiesData}`
+}
+
+
+// cityhistory();
 // let cityStorage = JSON.parse(localStorage.getItem("cities"));
 
 // if (cityStorage == null) {
@@ -187,3 +196,10 @@ cityhistory();
   //     $("#city").val('')
   //   })
   // })
+    // console.log(submit.value)
+  // if (submit.value == null){
+  //   console.log(true)
+  //   return
+  // } else {
+  //   console.log(false)
+  // }
