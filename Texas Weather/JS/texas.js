@@ -5,14 +5,15 @@ const apiKey = "3d8d7e3772c59d486c6023acf03a4346";
 const userCity = document.getElementById("city");
 const tdyDate = dayjs().format("MM,DD,YYYY");
 console.log(tdyDate);
-
+let cityStorage = JSON.parse(localStorage.getItem('cities'));
+  if (cityStorage == null) {
+    cityStorage = []
+  } 
 submit.addEventListener("click", function () {
   console.log("submit");
-  const city = userCity.value;
-  let cityStorage = [];
-  //   let lat = 29.4252
-  // let lon = -98.4946
-  // let city = 'San Antonio'
+  const city = submit.value;   
+  localStorage.setItem('userCities', cityStorage)
+  // cityStorage = []
   fetch(
     ` https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`
   )
@@ -45,6 +46,8 @@ submit.addEventListener("click", function () {
   }
 
   function tdycity(data) {
+    console.log(tdyWea)
+    tdyWea.innerHTML = ""
     const tdyMainDiv = document.createElement("div");
     tdyMainDiv.setAttribute("class", "col-12 pt-5 ps-4");
     tdyWea.append(tdyMainDiv);
@@ -97,7 +100,8 @@ submit.addEventListener("click", function () {
   }
 
   function fivedayforcast(geodata) {
-    console.log(geodata);
+    console.log(weekDiv)
+    weekDiv.innerHTML = ''
     for (let i = 4; i < 40; i = i + 8) {
       // console.log(i);
       let realTemp = (
@@ -153,34 +157,61 @@ submit.addEventListener("click", function () {
     mainDiv.textContent = "";
   }
 
-  function weather(geodata) {
-    initial();
-    fivedayforcast(geodata);
-    todayweather(geodata);
-  }
-  weather();
-  
-  
-  
+  // function weather(geodata) {
+  //   initial();
+  //   fivedayforcast(geodata);
+  //   todayweather(geodata);
+  // }
+  // weather();
+ 
+    // let cityStorage = [];
   
   
 });
+const hist = document.getElementById('history')
+function cityHistory (){
+  console.log(submit.value)
+  if (submit.value == null) {
+    return
+  } else {
+    console.log(false)
+  }
 
+  cityStorage.push(submit.value)
+
+  localStorage.setItem("cities", JSON.stringify(cityStorage));
+
+  for( let i = (cityStorage.length -1); i>0; i--){
+     const cityOne = document.createElement('button')
+ cityOne.setAttribute('class', 'col-12 mt-1 bg-info')
+ cityOne.textContent = `austin`
+ hist.append(cityOne)   
+
+  }
+  }
+  
+
+
+
+
+cityHistory()
 // const city = document.getElementById(submit)
-function handleFromSubmit(event) {
-    event.preventDefault();
+// function handleFromSubmit(event) {
+//     event.preventDefault();
 
-    const cities = document.getElementById('submit')
-    const citiesData = JSON.stringify(cities)
-    localStorage.setItem('userCities',citiesData)
-    updatedLastRegisterdUser(citiesData)
+//     const cities = document.getElementById('submit')
+    // const citiesData = JSON.stringify(cities)
+    
+    // for (i=0, i)
 
-}
+//     updatedLastRegisterdUser(citiesData)
 
-function updatedLastRegisterdUser(citiesData) {
-  const lastCity = document.createElement('lastUsedCity')
-  lastCity.textContent = `${citiesData}`
-}
+// }
+
+// function updatedLastRegisterdUser(citiesData) {
+//   const lastCity = document.createElement('lastUsedCity')
+//   lastCity.textContent = `${citiesData}`
+// }
 
 
 // cityhistory();
@@ -188,14 +219,7 @@ function updatedLastRegisterdUser(citiesData) {
 
 // if (cityStorage == null) {
 // }
-  // $(document).ready(function(){
-  //   $("#city").submit(function(event){
-  //     event.preventDefault();
-  //     let inputValues = $("#city").val()
-  //     console.log("Captured input value:" + inputValues);
-  //     $("#city").val('')
-  //   })
-  // })
+ 
     // console.log(submit.value)
   // if (submit.value == null){
   //   console.log(true)
