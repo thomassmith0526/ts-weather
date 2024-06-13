@@ -5,21 +5,17 @@ const apiKey = "3d8d7e3772c59d486c6023acf03a4346";
 const userCity = document.getElementById("city");
 const tdyDate = dayjs().format("MM,DD,YYYY");
 console.log(tdyDate);
-let cityStorage = JSON.parse(localStorage.getItem("cities"));
-if (cityStorage == null) {
-  cityStorage = [];
-}
+
 submit.addEventListener("click", function () {
   console.log("submit");
+
   const city = userCity.value;
-  setCityHistory()
-  // localStorage.setItem('userCities', cityStorage)
-  // cityStorage = []
+
   fetch(
     ` https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`
   )
     .then(function (response) {
-      console.log(response)
+      console.log(response);
       return response.json();
     })
     .then(function (data) {
@@ -42,7 +38,6 @@ submit.addEventListener("click", function () {
         console.log(data);
         todayweather(data);
         fivedayforcast(data);
-        
       });
   }
 
@@ -61,8 +56,8 @@ submit.addEventListener("click", function () {
   }
 
   function todayweather(geodata) {
-    let realTemp = 
-      ((Number(geodata.list[0].main.temp) - 273.15) * 9/5 +
+    let realTemp = (
+      ((Number(geodata.list[0].main.temp) - 273.15) * 9) / 5 +
       32
     ).toFixed(0);
     let wEmoji = "☀️";
@@ -101,12 +96,12 @@ submit.addEventListener("click", function () {
   }
 
   function fivedayforcast(geodata) {
-    console.log('beautiful things');
+    console.log("beautiful things");
     weekDiv.innerHTML = "";
     for (let i = 4; i < 40; i = i + 8) {
       // console.log(i);
-      let realTemp = 
-        ((Number(geodata.list[i].main.temp_max) - 273.15) * 9/5 +
+      let realTemp = (
+        ((Number(geodata.list[i].main.temp_max) - 273.15) * 9) / 5 +
         32
       ).toFixed(0);
       let wEmoji = "☀️";
@@ -155,100 +150,30 @@ submit.addEventListener("click", function () {
   tdyCard.setAttribute("class", "col-2 p-3 m-2 ");
 
 
-  // function weather(geodata) {
-  //   fivedayforcast(geodata);
-  //   todayweather(geodata);
-  // }
-  // weather();
-
-  // let cityStorage = [];
+setCityHistory()
 });
-// function getWeather(data) {
-//   console.log("a bar song");
-//   let lat = data[0].lat;
-//   let lon = data[0].lon;
 
-//   fetch(
-//     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
-//   )
-//     .then(function (response) {
-//       return response.json();
-//     })
-//     .then(function (data) {
-//       console.log(data);
-//       todayweather(data);
-//       fivedayforcast(data);
-      
-//     });
-// }
+let cityStorage = JSON.parse(localStorage.getItem("cities")) || [];
 
-const hist = document.getElementById('history')
+function setCityHistory() {
+  console.log('feathered indians');
+  console.log("this is the btn");
+  console.log("cityvalue " + userCity.value);
 
-
-function setCityHistory (event){
-
-const btn = event.target;
-
-console.log("this is the btn", btn)
-  console.log('cityvalue', userCity.value)
-  // if (userCity.value == null) {
-  //   return 
-  // } else {
-  //   console.log(false)
-  // }
-
-  cityStorage.push(userCity.value)
+  cityStorage.push(userCity.value);
 
   localStorage.setItem("cities", JSON.stringify(cityStorage));
-
-  
-
-  }
-  
-for( let i = (cityStorage.length -1); i>0; i--){
-     const cityOne = document.createElement('button')
-     cityOne.classList.add('pastbutton')
- cityOne.setAttribute('class', 'col-12 mt-1 bg-info')
- cityOne.textContent = `austin`
- hist.append(cityOne)
+displayCityHistory();
+userCity.value = "";
 }
-setCityHistory()
-
-
-
-
-
-
-
-
-// const city = document.getElementById(submit)
-// function handleFromSubmit(event) {
-//     event.preventDefault();
-
-//     const cities = document.getElementById('submit')
-// const citiesData = JSON.stringify(cities)
-
-// for (i=0, i)
-
-//     updatedLastRegisterdUser(citiesData)
-
-// }
-
-// function updatedLastRegisterdUser(citiesData) {
-//   const lastCity = document.createElement('lastUsedCity')
-//   lastCity.textContent = `${citiesData}`
-// }
-
-// cityhistory();
-// let cityStorage = JSON.parse(localStorage.getItem("cities"));
-
-// if (cityStorage == null) {
-// }
-
-// console.log(submit.value)
-// if (submit.value == null){
-//   console.log(true)
-//   return
-// } else {
-//   console.log(false)
-// }
+function displayCityHistory() {
+  const hist = document.getElementById("history");
+  hist.innerHTML = "";
+  for (let i = cityStorage.length - 1; i >= 0; i--) {
+    const cityOne = document.createElement("button");
+    cityOne.classList.add("pastbutton", "col-12", "mt-1", "bg-info");
+    cityOne.textContent = cityStorage[i];
+    hist.append(cityOne);
+  }
+}
+displayCityHistory()
