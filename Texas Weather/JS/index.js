@@ -95,6 +95,7 @@ submit.addEventListener("click", function () {
     mainDiv.append(tdyHum);
   }
 
+  
   function fivedayforcast(geodata) {
     console.log("beautiful things");
     weekDiv.innerHTML = "";
