@@ -166,6 +166,7 @@ function setCityHistory() {
 displayCityHistory();
 userCity.value = "";
 }
+
 function displayCityHistory() {
   const hist = document.getElementById("history");
   hist.innerHTML = "";
