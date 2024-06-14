@@ -174,6 +174,7 @@ function displayCityHistory() {
     cityOne.classList.add("pastbutton", "col-12", "mt-1", "bg-info");
     cityOne.textContent = cityStorage[i];
     hist.append(cityOne);
+    
   }
 }
 displayCityHistory()
