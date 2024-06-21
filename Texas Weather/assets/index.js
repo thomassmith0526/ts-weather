@@ -55,7 +55,7 @@ submit.addEventListener("click", function () {
     tdyMainDiv.append(cityName);
   }
 
-  function todayweather(geodata) {
+  function todayweather(geodata) {   //got the images from Micah when he was helping me out with this 
     let realTemp = (
       ((Number(geodata.list[0].main.temp) - 273.15) * 9) / 5 +
       32
